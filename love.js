@@ -3,14 +3,9 @@ function go(p){
   setTimeout(()=> location=p, 400);
 }
 
-// TELEGRAM CONFIG
-// Quick option (client-side): token/chat in this file (insecure). Prefer the forwarder below.
-const TELEGRAM_BOT_TOKEN = "8230672336:AAGup5na3K2R7VMxdNhq0S0Epn-QOTcbM0M"; // already present
-const TELEGRAM_CHAT_ID = "997953927"; // already present
-
-// Forwarder URL: set to your running server (example: http://localhost:3000)
-// If empty, the client will send directly to Telegram using the token above.
-const FORWARDER_URL = "";
+// Forwarder URL: can be overridden by setting `window.FORWARDER_URL` in the page
+// The client will POST answers here. Server stores messages for admin access.
+const FORWARDER_URL = (typeof window !== 'undefined' && window.FORWARDER_URL) ? window.FORWARDER_URL : "http://localhost:3000";
 
 // floating hearts
 setInterval(()=>{
@@ -195,38 +190,15 @@ function setupStoryQuiz(){
       const pageUrl = location.href;
       const msg = `Page: ${pageTitle} (${pageUrl})\nQuestion: ${question}\nAnswer: ${answer}\nTime: ${ts}`;
 
-      // If a forwarder URL is configured, post to it (keeps token server-side)
-      if(FORWARDER_URL){
-        try{
-          const res = await fetch(`${FORWARDER_URL.replace(/\/$/, '')}/send`,{
-            method:'POST',
-            headers:{'Content-Type':'application/json'},
-            body: JSON.stringify({ pageTitle, pageUrl, question, answer, time: ts })
-          });
-          const data = await res.json();
-          if(data && data.ok){ btn.textContent='Sent'; setTimeout(()=>{ btn.textContent='Send'; input.value=''; btn.disabled=false; card.classList.remove('active'); },1200); }
-          else { console.error('forwarder error', data); btn.textContent='Error'; setTimeout(()=>{ btn.textContent='Send'; btn.disabled=false; card.classList.remove('active'); },1200); }
-        }catch(err){ console.error(err); btn.textContent='Error'; setTimeout(()=>{ btn.textContent='Send'; btn.disabled=false; },1200); }
-        return;
-      }
-
-      // Fallback: send directly from client if token/chat are present (insecure)
-      if(!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID){
-        try{ await navigator.clipboard.writeText(msg); }catch(e){}
-        btn.textContent = 'Copied';
-        setTimeout(()=>{ btn.textContent='Send'; btn.disabled=false; input.value=''; card.classList.remove('active'); },1400);
-        return;
-      }
-
       try{
-        const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,{
+        const res = await fetch(`${FORWARDER_URL.replace(/\/$/, '')}/send`,{
           method:'POST',
           headers:{'Content-Type':'application/json'},
-          body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: msg })
+          body: JSON.stringify({ pageTitle, pageUrl, question, answer, time: ts })
         });
         const data = await res.json();
         if(data && data.ok){ btn.textContent='Sent'; setTimeout(()=>{ btn.textContent='Send'; input.value=''; btn.disabled=false; card.classList.remove('active'); },1200); }
-        else { console.error('tg error', data); btn.textContent='Error'; setTimeout(()=>{ btn.textContent='Send'; btn.disabled=false; card.classList.remove('active'); },1200); }
+        else { console.error('forwarder error', data); btn.textContent='Error'; setTimeout(()=>{ btn.textContent='Send'; btn.disabled=false; card.classList.remove('active'); },1200); }
       }catch(err){ console.error(err); btn.textContent='Error'; setTimeout(()=>{ btn.textContent='Send'; btn.disabled=false; },1200); }
       // ensure collapse after errors as well
       try{ setTimeout(()=>{ card.classList.remove('active'); },1500); }catch(e){}

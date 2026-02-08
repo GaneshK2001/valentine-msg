@@ -11,8 +11,14 @@ Local Telegram forwarder (free, secure)
    npm install
    npm start
 
-3. In the client (`love.js`) set `FORWARDER_URL` to `http://localhost:3000`.
+3. In the client (`love.js`) set `FORWARDER_URL` to `http://localhost:3000` (default already set for local testing).
 
-Now the client will POST answers to the forwarder and the server will call Telegram with the token from the environment.
+4. View stored messages:
+   - Open the admin page in your browser:
+     http://localhost:3000/admin?key=replace_this_with_a_secret
+   - Or fetch raw JSON:
+     http://localhost:3000/messages?key=replace_this_with_a_secret
+
+Now the client will POST answers to the forwarder and the server will store messages.
 
 Security: Keep your `.env` private. Rotate token if you previously exposed it.

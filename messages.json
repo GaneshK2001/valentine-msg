@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1770543740358,
+    "pageTitle": "Story Test",
+    "pageUrl": "http://localhost:3000/story.html",
+    "question": "What's your favorite memory?",
+    "answer": "This is a test answer",
+    "time": "2026-02-08T09:50:00.000Z"
+  },
+  {
+    "id": 1770543792437,
+    "pageTitle": "Story Test",
+    "pageUrl": "http://localhost:3000/story.html",
+    "question": "What's your favorite memory?",
+    "answer": "This is a test answer from the assistant",
+    "time": "2026-02-08T09:43:12.417Z"
+  },
+  {
+    "id": 1770543822114,
+    "pageTitle": "Story Test",
+    "pageUrl": "http://localhost:3000/story.html",
+    "question": "What's your favorite memory?",
+    "answer": "This is a test answer from the assistant",
+    "time": "2026-02-08T09:43:42.104Z"
+  }
+]
