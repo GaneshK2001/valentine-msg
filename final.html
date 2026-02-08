@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>For You</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      body {
+        background:
+          radial-gradient(circle at 10% 20%, #ff758c33, transparent 40%),
+          radial-gradient(circle at 90% 80%, #ff7eb333, transparent 40%),
+          #080010;
+      }
+      .heart {
+        position: fixed;
+        color: #ff4d6d;
+        animation: fly linear infinite;
+      }
+      @keyframes fly {
+        0% {
+          transform: translateY(0) scale(0.6);
+          opacity: 0.8;
+        }
+        100% {
+          transform: translateY(-120vh) scale(1.2);
+          opacity: 0;
+        }
+      }
+      .glass {
+        backdrop-filter: blur(14px);
+        background: #ffffff12;
+        border: 1px solid #ffffff22;
+      }
+      /* YES button styles */
+      .btn-yes {
+        position: relative;
+        transition:
+          transform 0.18s ease,
+          box-shadow 0.18s ease;
+        box-shadow:
+          0 6px 18px rgba(255, 77, 109, 0.18),
+          0 2px 6px rgba(0, 0, 0, 0.25);
+      }
+      .btn-yes:hover {
+        transform: translateY(-4px) scale(1.03);
+        box-shadow: 0 12px 28px rgba(255, 77, 109, 0.28);
+      }
+      .btn-yes:active {
+        transform: scale(0.98);
+      }
+
+      /* click animation: pop + glow then fade */
+      .btn-yes.clicked {
+        animation: yesClick 0.85s cubic-bezier(0.22, 0.9, 0.29, 1) forwards;
+        pointer-events: none;
+      }
+      @keyframes yesClick {
+        0% {
+          transform: scale(1);
+          filter: drop-shadow(0 6px 18px rgba(255, 77, 109, 0.18));
+        }
+        40% {
+          transform: scale(1.22) rotate(-6deg);
+          box-shadow: 0 24px 40px rgba(255, 77, 109, 0.32);
+        }
+        70% {
+          transform: scale(1.02) rotate(4deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-30vh) scale(0.6);
+          opacity: 0;
+        }
+      }
+
+      /* tiny pink heart burst from button */
+      .burst-heart {
+        position: fixed;
+        color: #ff5678;
+        font-size: 14px;
+        pointer-events: none;
+        animation: burst 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      }
+      @keyframes burst {
+        0% {
+          transform: translateY(0) scale(1);
+          opacity: 1;
+        }
+        60% {
+          transform: translateY(-3.2rem) scale(1.18);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-7rem) scale(0.6);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="h-screen flex items-center justify-center">
+    <div class="flex flex-col items-center gap-6">
+      <div
+        class="glass flex flex-col items-center gap-4 p-8 rounded-3xl text-white"
+      >
+        <h1 class="text-3xl text-pink-300">Dear Arathy</h1>
+
+        <p class="text-center leading-relaxed">
+          You are my safest place,<br />
+          my favorite notification,<br />
+          the best part of my life.<br /><br />
+
+          In every universe,<br />
+          I would choose you again ❤️
+        </p>
+
+        <div class="flex gap-3">
+          <button id="yes" class="bg-pink-500 px-4 py-2 rounded-full btn-yes">
+            YES 💍
+          </button>
+
+          <button id="no" class="bg-gray-600 px-4 py-2 rounded-full">NO</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="love.js"></script>
+  </body>
+</html>

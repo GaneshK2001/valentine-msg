@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>For Arathy ❤️</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+body{
+  background:
+    radial-gradient(circle at 10% 20%, #ff758c33, transparent 40%),
+    radial-gradient(circle at 90% 80%, #ff7eb333, transparent 40%),
+    #080010;
+}
+
+.heart{
+  position:fixed;
+  color:#ff4d6d;
+  animation:fly linear infinite;
+}
+
+@keyframes fly{
+  0%{transform:translateY(0) scale(.6);opacity:.8}
+  100%{transform:translateY(-120vh) scale(1.2);opacity:0}
+}
+
+.glass{
+  backdrop-filter:blur(14px);
+  background:#ffffff12;
+  border:1px solid #ffffff22;
+}
+</style>
+
+</head>
+
+<body class="h-screen flex items-center justify-center">
+
+<div class="flex flex-col items-center justify-center gap-6">
+
+  <div class="glass flex flex-col items-center gap-4 p-8 rounded-3xl text-white shadow-2xl">
+
+    <h1 class="text-4xl font-['Dancing_Script'] text-pink-300">
+      Hey Arathy 💖
+    </h1>
+
+    <p class="text-center text-sm opacity-90">
+      I built a tiny universe<br>
+      only for you & me
+    </p>
+
+    <button
+      onclick="go('story.html')"
+      class="bg-pink-500 hover:bg-pink-400 transition px-5 py-2 rounded-full">
+      Enter Our World ✨
+    </button>
+
+  </div>
+
+</div>
+
+<script src="love.js"></script>
+</body>
+</html>
