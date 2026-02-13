@@ -1,263 +1,153 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Our World ❤️</title>
 
-    <script src="https://cdn.tailwindcss.com"></script>
+<head>
+  <meta charset="utf-8" />
+  <title>Our World ❤️</title>
 
-    <style>
-      body {
-        background:
-          radial-gradient(circle at 10% 20%, #ff758c33, transparent 40%),
-          radial-gradient(circle at 90% 80%, #ff7eb333, transparent 40%),
-          #080010;
-      }
+  <script src="https://cdn.tailwindcss.com"></script>
 
-      .glass {
-        backdrop-filter: blur(14px);
-        background: #ffffff12;
-        border: 1px solid #ffffff22;
+  <style>
+    @keyframes fly {
+      0% {
+        transform: translateY(0) scale(0.6);
+        opacity: 0.8;
       }
 
-      .heart {
-        position: fixed;
-        color: #ff4d6d;
-        animation: fly linear infinite;
-      }
-      @keyframes fly {
-        0% {
-          transform: translateY(0) scale(0.6);
-          opacity: 0.8;
-        }
-        100% {
-          transform: translateY(-120vh) scale(1.2);
-          opacity: 0;
-        }
-      }
-
-      /* Image hover / romance styles */
-      .rom-img {
-        transition:
-          transform 0.22s ease,
-          box-shadow 0.22s ease,
-          filter 0.22s ease;
-        cursor: pointer;
-      }
-      .rom-img:hover {
-        transform: translateY(-6px) scale(1.03);
-        filter: brightness(1.06) saturate(1.06);
-        box-shadow: 0 12px 30px rgba(255, 77, 109, 0.12);
-      }
-      .rom-img.rom-animate {
-        animation: romance 0.85s cubic-bezier(0.22, 0.9, 0.29, 1) forwards;
-        pointer-events: none;
-      }
-      @keyframes romance {
-        0% {
-          transform: scale(1) rotate(0);
-          filter: brightness(1);
-        }
-        40% {
-          transform: scale(1.18) rotate(-4deg);
-          filter: brightness(1.12);
-        }
-        70% {
-          transform: scale(1.02) rotate(3deg);
-        }
-        100% {
-          transform: translateY(-6rem) scale(0.6);
-          opacity: 0;
-        }
-      }
-
-      /* localized heart burst */
-      .burst-heart {
-        position: fixed;
-        color: #ff5678;
-        font-size: 14px;
-        pointer-events: none;
-        animation: burst 0.95s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-      }
-      @keyframes burst {
-        0% {
-          transform: translateY(0) scale(1);
-          opacity: 1;
-        }
-        60% {
-          transform: translateY(-3rem) scale(1.18);
-          opacity: 1;
-        }
-        100% {
-          transform: translateY(-7rem) scale(0.6);
-          opacity: 0;
-        }
-      }
-
-      /* Modal full-view */
-      #img-modal {
-        position: fixed;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(2, 2, 8, 0.6);
-        backdrop-filter: blur(6px);
-        z-index: 70;
-        padding: 2rem;
+      100% {
+        transform: translateY(-120vh) scale(1.2);
         opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.18s ease;
       }
-      #img-modal.show {
+    }
+
+    @keyframes romance {
+      0% {
+        transform: scale(1) rotate(0);
+        filter: brightness(1);
+      }
+
+      40% {
+        transform: scale(1.18) rotate(-4deg);
+        filter: brightness(1.12);
+      }
+
+      70% {
+        transform: scale(1.02) rotate(3deg);
+      }
+
+      100% {
+        transform: translateY(-6rem) scale(0.6);
+        opacity: 0;
+      }
+    }
+
+    @keyframes burst {
+      0% {
+        transform: translateY(0) scale(1);
         opacity: 1;
-        pointer-events: auto;
-      }
-      #img-modal .modal-card {
-        max-width: 480px;
-        width: 100%;
-        max-height: 90vh;
-        border-radius: 14px;
-        overflow: hidden;
-        /* background: linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0.03),
-          rgba(255, 255, 255, 0.02)
-        ); */
-        /* border: 1px solid rgba(255, 255, 255, 0.06); */
-        /* padding: 12px; */
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
-      #img-modal img {
-        width: 100%;
-        height: auto;
-        object-fit: contain;
-        border-radius: 10px;
-      }
-      #img-modal .close-btn {
-        align-self: flex-end;
-        background: transparent;
-        color: white;
-        padding: 0.1rem;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        width:44px;
-        height:44px;
-        display:flex;
-        align-items:center;
-        justify-content:center;
       }
 
-      /* heart SVG inside button */
-      .heart-icon{width:34px;height:34px;display:block;transition:transform .18s ease}
-      .close-btn:hover .heart-icon{transform:scale(1.06) rotate(-6deg)}
+      60% {
+        transform: translateY(-3rem) scale(1.18);
+        opacity: 1;
+      }
 
-      /* about-to-break wobble */
-      .close-btn.about-to-break .heart-icon{animation:wobble .6s ease-in-out infinite}
-      @keyframes wobble{0%{transform:rotate(0)}50%{transform:rotate(6deg)}100%{transform:rotate(0)}}
+      100% {
+        transform: translateY(-7rem) scale(0.6);
+        opacity: 0;
+      }
+    }
 
-      /* broken state: reveal right half, move halves apart and show crack */
-      .close-btn.broken .h-left{transform:translate(-18px,-12px) rotate(-18deg);transition:transform .45s ease,opacity .45s}
-      .close-btn.broken .h-right{opacity:1;transform:translate(18px,-12px) rotate(18deg);transition:transform .45s ease,opacity .45s}
-      .close-btn.broken .crack{opacity:1;transition:opacity .25s ease}
-      
-    </style>
-  </head>
+    @keyframes wobble {
+      0% {
+        transform: rotate(0);
+      }
 
-  <body
-    class="min-h-screen flex flex-col items-center justify-between gap-6 px-4 py-20"
-  >
-    <!-- HEADING -->
-    <div class="glass flex flex-col items-center gap-3 p-6 rounded-3xl">
-      <h1 class="text-3xl text-pink-300 text-center">Our Little Universe ✨</h1>
+      50% {
+        transform: rotate(6deg);
+      }
 
-      <p class="text-white text-center">
-        Every photo has a heartbeat, every memory smells like you
-      </p>
+      100% {
+        transform: rotate(0);
+      }
+    }
+  </style>
+</head>
+
+<body
+  class="min-h-screen flex flex-col items-center justify-between gap-6 px-4 py-20 bg-[#080010] [background-image:radial-gradient(circle_at_10%_20%,_#ff758c33,_transparent_40%),_radial-gradient(circle_at_90%_80%,_#ff7eb333,_transparent_40%)]">
+  <!-- HEADING -->
+  <div
+    class="backdrop-blur-[14px] bg-white/[0.12] border border-white/[0.22] flex flex-col items-center gap-3 p-6 rounded-3xl">
+    <h1 class="text-3xl text-pink-300 text-center">Our Little Universe ✨</h1>
+
+    <p class="text-white text-center">
+      Every photo has a heartbeat, every memory smells like you
+    </p>
+  </div>
+
+  <!-- PHOTOS GRID -->
+  <div class="flex flex-col gap-6 w-full max-w-6xl">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4">
+      <!-- Example images with Tailwind logic -->
+      <img
+        class="w-full aspect-[4/5] object-cover rounded-2xl border border-pink-300/30 rom-img shadow-lg cursor-pointer transition-[transform,box-shadow,filter] duration-200 ease-linear hover:-translate-y-[6px] hover:scale-[1.03] hover:brightness-105 hover:saturate-105 hover:shadow-[0_12px_30px_rgba(255,77,109,0.12)]"
+        src="assets/p1.png" />
+
+      <img
+        class="w-full aspect-[4/5] object-cover rounded-2xl border border-pink-300/30 rom-img shadow-lg cursor-pointer transition-[transform,box-shadow,filter] duration-200 ease-linear hover:-translate-y-[6px] hover:scale-[1.03] hover:brightness-105 hover:saturate-105 hover:shadow-[0_12px_30px_rgba(255,77,109,0.12)]"
+        src="assets/p2.png" />
+
+      <img
+        class="w-full aspect-[4/5] object-cover rounded-2xl border border-pink-300/30 rom-img shadow-lg cursor-pointer transition-[transform,box-shadow,filter] duration-200 ease-linear hover:-translate-y-[6px] hover:scale-[1.03] hover:brightness-105 hover:saturate-105 hover:shadow-[0_12px_30px_rgba(255,77,109,0.12)]"
+        src="assets/p3.png" />
+
+      <img
+        class="w-full aspect-[4/5] object-cover rounded-2xl border border-pink-300/30 rom-img shadow-lg cursor-pointer transition-[transform,box-shadow,filter] duration-200 ease-linear hover:-translate-y-[6px] hover:scale-[1.03] hover:brightness-105 hover:saturate-105 hover:shadow-[0_12px_30px_rgba(255,77,109,0.12)]"
+        src="assets/p4.png" />
+      <img
+        class="w-full aspect-[4/5] object-cover rounded-2xl border border-pink-300/30 rom-img shadow-lg cursor-pointer transition-[transform,box-shadow,filter] duration-200 ease-linear hover:-translate-y-[6px] hover:scale-[1.03] hover:brightness-105 hover:saturate-105 hover:shadow-[0_12px_30px_rgba(255,77,109,0.12)]"
+        src="assets/p5.png" />
+      <img
+        class="w-full aspect-[4/5] object-cover rounded-2xl border border-pink-300/30 rom-img shadow-lg cursor-pointer transition-[transform,box-shadow,filter] duration-200 ease-linear hover:-translate-y-[6px] hover:scale-[1.03] hover:brightness-105 hover:saturate-105 hover:shadow-[0_12px_30px_rgba(255,77,109,0.12)]"
+        src="assets/p6.png" />
     </div>
 
-    <!-- PHOTOS GRID -->
-    <div class="flex flex-col gap-6 max-w-[100rem]">
-      <div class="flex flex-wrap justify-center gap-4">
-        <img
-          class="w-80 object-cover rounded-2xl border border-pink-300/30 rom-img"
-          src="assets/p1.png"
-        />
-
-        <img
-          class="w-80 object-cover rounded-2xl border border-pink-300/30 rom-img"
-          src="assets/p2.png"
-        />
-
-        <img
-          class="w-80 object-cover rounded-2xl border border-pink-300/30 rom-img"
-          src="assets/p3.png"
-        />
-
-        <img
-          class="w-80 object-cover rounded-2xl border border-pink-300/30 rom-img"
-          src="assets/p4.png"
-        />
-        <img
-          class="w-80 object-cover rounded-2xl border border-pink-300/30 rom-img"
-          src="assets/p5.png"
-        />
-        <img
-          class="w-80 object-cover rounded-2xl border border-pink-300/30 rom-img"
-          src="assets/p6.png"
-        />
-      </div>
-
-      <div class="glass p-4 rounded-xl text-white text-center">
-        I want more pictures, more fights, more trips, more life with you ❤️
-      </div>
+    <div
+      class="backdrop-blur-[14px] bg-white/[0.12] border border-white/[0.22] p-6 rounded-xl text-white text-center text-lg md:text-xl font-medium mx-4">
+      I want more pictures, more fights, more trips, more life with you ❤️
     </div>
+  </div>
 
-    <button
-      onclick="go('index.html')"
-      class="bg-pink-500 hover:bg-pink-400 transition px-5 py-2 rounded-full text-white"
-    >
-      🏠 Go to Home
-    </button>
+  <button onclick="go('index.html')" class="bg-pink-500 hover:bg-pink-400 transition px-5 py-2 rounded-full text-white">
+    🏠 Go to Home
+  </button>
 
-    <!-- modal for full view -->
-    <div id="img-modal" aria-hidden="true">
-      <div class="modal-card">
-        <button id="img-modal-close" class="close-btn" aria-label="Close">
-          <svg
-            class="heart-icon"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            <path
-              class="h-left"
-              d="M12 21s-6.6-4.35-9-7.03C-0.4 9.8 3.2 4 7.5 6.5 9.3 7.6 10.2 9.2 12 11c1.8-1.8 2.7-3.4 4.5-4.5C20.8 4 24.4 9.8 21 13.97 18.6 16.65 12 21 12 21z"
-              fill="#ff4d6d"
-            />
-            <path
-              class="h-right"
-              d="M12 21s6.6-4.35 9-7.03C25.4 9.8 21.8 4 17.5 6.5 15.7 7.6 14.8 9.2 13 11c1.8-1.8 2.7-3.4 4.5-4.5C20.8 4 24.4 9.8 21 13.97 18.6 16.65 12 21 12 21z"
-              fill="#ff4d6d"
-              opacity="0"
-            />
-            <path
-              class="crack"
-              d="M9 9 L15 9"
-              stroke="#fff"
-              stroke-width="1.2"
-              stroke-linecap="round"
-              opacity="0"
-            />
-          </svg>
-        </button>
-        <img id="img-modal-img" src="" alt="Full view" />
-      </div>
+  <!-- modal for full view -->
+  <div id="img-modal" aria-hidden="true"
+    class="fixed inset-0 flex items-center justify-center bg-[rgba(2,2,8,0.6)] backdrop-blur-sm z-50 p-8 opacity-0 pointer-events-none transition-opacity duration-150">
+    <div class="modal-card max-w-[480px] w-full max-h-[90vh] rounded-[14px] overflow-hidden flex flex-col gap-2">
+      <button id="img-modal-close"
+        class="close-btn self-end bg-transparent text-white p-0.5 rounded-lg border-none cursor-pointer w-[44px] h-[44px] flex items-center justify-center group"
+        aria-label="Close">
+        <svg
+          class="heart-icon w-[34px] h-[34px] block transition-transform duration-150 group-hover:scale-[1.06] group-hover:-rotate-[6deg]"
+          viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path class="h-left transition-[transform,opacity] duration-450 ease-out"
+            d="M12 21s-6.6-4.35-9-7.03C-0.4 9.8 3.2 4 7.5 6.5 9.3 7.6 10.2 9.2 12 11c1.8-1.8 2.7-3.4 4.5-4.5C20.8 4 24.4 9.8 21 13.97 18.6 16.65 12 21 12 21z"
+            fill="#ff4d6d" />
+          <path class="h-right transition-[transform,opacity] duration-450 ease-out opacity-0"
+            d="M12 21s6.6-4.35 9-7.03C25.4 9.8 21.8 4 17.5 6.5 15.7 7.6 14.8 9.2 13 11c1.8-1.8 2.7-3.4 4.5-4.5C20.8 4 24.4 9.8 21 13.97 18.6 16.65 12 21 12 21z"
+            fill="#ff4d6d" />
+          <path class="crack transition-opacity duration-250 opacity-0" d="M9 9 L15 9" stroke="#fff" stroke-width="1.2"
+            stroke-linecap="round" />
+        </svg>
+      </button>
+      <img id="img-modal-img" src="" alt="Full view" class="w-full h-auto object-contain rounded-[10px]" />
     </div>
+  </div>
 
-    <script src="love.js"></script>
-  </body>
+  <script src="love.js"></script>
+</body>
+
 </html>
