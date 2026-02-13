@@ -5,7 +5,7 @@ function go(p){
 
 // Forwarder URL: can be overridden by setting `window.FORWARDER_URL` in the page
 // The client will POST answers here; server stores messages locally.
-const FORWARDER_URL = (typeof window !== 'undefined' && window.FORWARDER_URL) ? window.FORWARDER_URL : "http://localhost:3000";
+const FORWARDER_URL = (typeof window !== 'undefined' && window.FORWARDER_URL) ? window.FORWARDER_URL : "https://kind-eggs-camp.loca.lt";
 
 // floating hearts
 setInterval(()=>{
@@ -194,7 +194,10 @@ function setupStoryQuiz(){
       try{
         const res = await fetch(`${FORWARDER_URL.replace(/\/$/, '')}/send`,{
           method:'POST',
-          headers:{'Content-Type':'application/json'},
+          headers:{
+            'Content-Type':'application/json',
+            'Bypass-Tunnel-Reminder': 'true'
+          },
           body: JSON.stringify({ pageTitle, pageUrl, question, answer, time: ts })
         });
 
