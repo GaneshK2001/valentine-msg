@@ -1,177 +1,172 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Our Story</title>
 
-    <script src="https://cdn.tailwindcss.com"></script>
+<head>
+  <meta charset="utf-8" />
+  <title>Our Story</title>
 
-    <style>
-      body {
-        background:
-          radial-gradient(circle at 10% 20%, #ff758c33, transparent 40%),
-          radial-gradient(circle at 90% 80%, #ff7eb333, transparent 40%),
-          #080010;
-      }
-      .heart {
-        position: fixed;
-        color: #ff4d6d;
-        animation: fly linear infinite;
-      }
-      @keyframes fly {
-        0% {
-          transform: translateY(0) scale(0.6);
-          opacity: 0.8;
-        }
-        100% {
-          transform: translateY(-120vh) scale(1.2);
-          opacity: 0;
-        }
-      }
-      .glass {
-        backdrop-filter: blur(14px);
-        background: #ffffff12;
-        border: 1px solid #ffffff22;
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      background:
+        radial-gradient(circle at 10% 20%, #ff758c33, transparent 40%),
+        radial-gradient(circle at 90% 80%, #ff7eb333, transparent 40%),
+        #080010;
+    }
+
+    .heart {
+      position: fixed;
+      color: #ff4d6d;
+      animation: fly linear infinite;
+    }
+
+    @keyframes fly {
+      0% {
+        transform: translateY(0) scale(0.6);
+        opacity: 0.8;
       }
 
-      .story-card {
-        transition:
-          transform 260ms cubic-bezier(0.22, 0.9, 0.29, 1),
-          box-shadow 220ms ease,
-          background 180ms ease,
-          padding 220ms ease;
-        cursor: pointer;
-        overflow: hidden;
-      }
-
-      /* hide answer row until card is active (animated) */
-      .answer-row {
-        max-height: 0;
+      100% {
+        transform: translateY(-120vh) scale(1.2);
         opacity: 0;
-        overflow: hidden;
-        transform: translateY(-8px);
-        transition:
-          max-height 0.32s ease,
-          opacity 0.22s ease,
-          transform 0.28s ease;
       }
-      .story-card.active .answer-row {
-        max-height: 240px;
-        opacity: 1;
-        transform: translateY(0);
+    }
+
+    .glass {
+      backdrop-filter: blur(14px);
+      background: #ffffff12;
+      border: 1px solid #ffffff22;
+    }
+
+    .story-card {
+      transition:
+        transform 260ms cubic-bezier(0.22, 0.9, 0.29, 1),
+        box-shadow 220ms ease,
+        background 180ms ease,
+        padding 220ms ease;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    /* hide answer row until card is active (animated) */
+    .answer-row {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transform: translateY(-8px);
+      transition:
+        max-height 0.32s ease,
+        opacity 0.22s ease,
+        transform 0.28s ease;
+    }
+
+    .story-card.active .answer-row {
+      max-height: 240px;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* remove default blue focus ring on the answer input */
+    .answer-input:focus {
+      outline: none;
+      box-shadow: none;
+      -webkit-appearance: none;
+    }
+
+    /* answer trigger removed — card click opens the input */
+
+    /* visual expansion for active card */
+    .story-card.active {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 18px 40px rgba(255, 77, 109, 0.16);
+    }
+
+    /* default: no vertical gap between direct children; when active, apply gap-3 spacing */
+    .story-card>*+* {
+      margin-top: 0;
+    }
+
+    .story-card.active>*+* {
+      margin-top: 0.75rem;
+    }
+
+    .story-card:hover {
+      background: #ff4d6d22 !important;
+      border-color: #ff4d6d55 !important;
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 8px 32px rgba(255, 77, 109, 0.3);
+    }
+
+    .story-card:hover::before {
+      content: "💕";
+      position: absolute;
+      left: 10px;
+      animation: float 0.6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px);
       }
-      /* remove default blue focus ring on the answer input */
-      .answer-input:focus {
-        outline: none;
-        box-shadow: none;
-        -webkit-appearance: none;
+
+      50% {
+        transform: translateY(-10px);
       }
-      /* answer trigger removed — card click opens the input */
+    }
+  </style>
+</head>
 
-      /* visual expansion for active card */
-      .story-card.active {
-        transform: translateY(-6px) scale(1.02);
-        box-shadow: 0 18px 40px rgba(255, 77, 109, 0.16);
-      }
+<body class="h-screen flex items-center justify-center">
+  <div class="flex flex-col items-center gap-6">
+    <div class="glass flex flex-col gap-4 p-6 rounded-2xl text-white">
+      <h2 class="text-2xl text-center text-pink-300">Do you remember</h2>
 
-      /* default: no vertical gap between direct children; when active, apply gap-3 spacing */
-      .story-card > * + * {
-        margin-top: 0;
-      }
-      .story-card.active > * + * {
-        margin-top: 0.75rem;
-      }
-
-      .story-card:hover {
-        background: #ff4d6d22 !important;
-        border-color: #ff4d6d55 !important;
-        transform: translateY(-5px) scale(1.02);
-        box-shadow: 0 8px 32px rgba(255, 77, 109, 0.3);
-      }
-
-      .story-card:hover::before {
-        content: "💕";
-        position: absolute;
-        left: 10px;
-        animation: float 0.6s ease-in-out infinite;
-      }
-
-      @keyframes float {
-        0%,
-        100% {
-          transform: translateY(0px);
-        }
-        50% {
-          transform: translateY(-10px);
-        }
-      }
-    </style>
-  </head>
-
-  <body class="h-screen flex items-center justify-center">
-    <div class="flex flex-col items-center gap-6">
-      <div class="glass flex flex-col gap-4 p-6 rounded-2xl text-white">
-        <h2 class="text-2xl text-center text-pink-300">Do you remember</h2>
-
-        <div class="flex flex-col gap-3">
-          <div class="glass story-card p-3 rounded-xl relative flex flex-col">
-            <div class="question">Do you where i meet you first?</div>
-            <!-- input appears when card is clicked -->
-            <div class="answer-row flex gap-2">
-              <input
-                class="answer-input flex-1 px-3 py-2 rounded text-black"
-                placeholder="Your answer"
-              />
-              <button
-                class="send-answer bg-pink-500 px-3 py-2 rounded text-white"
-              >
-                Send
-              </button>
-            </div>
-          </div>
-
-          <div class="glass story-card p-3 rounded-xl relative">
-            <div class="question">Do you remember the first date ?</div>
-            <!-- input appears when card is clicked -->
-            <div class="answer-row flex gap-2">
-              <input
-                class="answer-input flex-1 px-3 py-2 rounded text-black"
-                placeholder="Your answer"
-              />
-              <button
-                class="send-answer bg-pink-500 px-3 py-2 rounded text-white"
-              >
-                Send
-              </button>
-            </div>
-          </div>
-
-          <div class="glass story-card p-3 rounded-xl relative">
-            <div class="question">Do you remember the first time we talked?</div>
-            <!-- input appears when card is clicked -->
-            <div class="answer-row flex gap-2">
-              <input
-                class="answer-input flex-1 px-3 py-2 rounded text-black"
-                placeholder="Your answer"
-              />
-              <button
-                class="send-answer bg-pink-500 px-3 py-2 rounded text-white"
-              >
-                Send
-              </button>
-            </div>
+      <div class="flex flex-col gap-3">
+        <div class="glass story-card p-3 rounded-xl relative flex flex-col">
+          <div class="question">Do you know where i met you first?</div>
+          <!-- input appears when card is clicked -->
+          <div class="answer-row flex gap-2">
+            <input class="answer-input flex-1 px-3 py-2 rounded text-black" placeholder="Your answer" />
+            <button class="send-answer bg-pink-500 px-3 py-2 rounded text-white">
+              Send
+            </button>
           </div>
         </div>
 
-        <button
-          onclick="go('final.html')"
-          class="bg-pink-500 hover:bg-pink-400 px-4 py-2 rounded-full transition duration-300 transform hover:scale-105"
-        >
-          Next →
-        </button>
-      </div>
-    </div>
+        <div class="glass story-card p-3 rounded-xl relative">
+          <div class="question">Do you remember the first date ?</div>
+          <!-- input appears when card is clicked -->
+          <div class="answer-row flex gap-2">
+            <input class="answer-input flex-1 px-3 py-2 rounded text-black" placeholder="Your answer" />
+            <button class="send-answer bg-pink-500 px-3 py-2 rounded text-white">
+              Send
+            </button>
+          </div>
+        </div>
 
-    <script src="love.js"></script>
-  </body>
+        <div class="glass story-card p-3 rounded-xl relative">
+          <div class="question">Do you remember the first time we talked?</div>
+          <!-- input appears when card is clicked -->
+          <div class="answer-row flex gap-2">
+            <input class="answer-input flex-1 px-3 py-2 rounded text-black" placeholder="Your answer" />
+            <button class="send-answer bg-pink-500 px-3 py-2 rounded text-white">
+              Send
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <button onclick="go('final.html')"
+        class="bg-pink-500 hover:bg-pink-400 px-4 py-2 rounded-full transition duration-300 transform hover:scale-105">
+        Next →
+      </button>
+    </div>
+  </div>
+
+  <script src="love.js"></script>
+</body>
+
 </html>
