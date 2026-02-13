@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .rom-img {
+    filter: brightness(1) saturate(1);
+    transition: transform 0.2s linear, box-shadow 0.2s linear, filter 0.2s linear;
+  }
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  transition: opacity 0.4s ease-out;
+  overflow-x: hidden;
+  background-color: #080010;
+}
+
+@keyframes fly {
+  0% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translateY(-120vh) scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes romance {
+  0% {
+    transform: scale(1) rotate(0);
+    filter: brightness(1);
+  }
+
+  40% {
+    transform: scale(1.18) rotate(-4deg);
+    filter: brightness(1.12);
+  }
+
+  70% {
+    transform: scale(1.02) rotate(3deg);
+  }
+
+  100% {
+    transform: translateY(-6rem) scale(0.6);
+    opacity: 0;
+  }
+}
+
+@keyframes burst {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  60% {
+    transform: translateY(-3.2rem) scale(1.18);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-7rem) scale(0.6);
+    opacity: 0;
+  }
+}
+
+@keyframes wobble {
+  0% {
+    transform: rotate(0);
+  }
+
+  50% {
+    transform: rotate(6deg);
+  }
+
+  100% {
+    transform: rotate(0);
+  }
+}
+
+@keyframes yesClick {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(0 6px 18px rgba(255, 77, 109, 0.18));
+  }
+
+  40% {
+    transform: scale(1.22) rotate(-6deg);
+    box-shadow: 0 24px 40px rgba(255, 77, 109, 0.32);
+  }
+
+  70% {
+    transform: scale(1.02) rotate(4deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-30vh) scale(0.6);
+    opacity: 0;
+  }
+}
+
+@layer utilities {
+  .perspective-\[1000px\] {
+    perspective: 1000px;
+  }
+
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+}
